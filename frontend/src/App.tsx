@@ -2,6 +2,7 @@ import { useState } from 'react'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import TaskStats from './components/TaskStats'
+import PriorityFilter from './components/PriorityFilter'
 import './App.css'
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
           {/* Task Statistics - TODO TASK 7 */}
           <TaskStats />
 
+          {/* Priority Filter Test - TASK 1/5 */}
+          <PriorityFilter />
+
           {/* Create Task Form */}
           <TaskForm />
 
@@ -34,7 +38,7 @@ function App() {
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                {f.charAt(0).toUpperCase() + f.slice(1)}
+                {f.charAt(0).toUpperCase() + f.slice(1))}
               </button>
             ))}
           </div>

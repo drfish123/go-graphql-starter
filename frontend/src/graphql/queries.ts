@@ -36,19 +36,19 @@ export const GET_TASK = gql`
 
 // TODO TASK 5: Write the query for TasksByPriority
 // Should accept a priority parameter and return tasks with that priority
-// export const GET_TASKS_BY_PRIORITY = gql`
-//   query GetTasksByPriority($priority: Priority!) {
-//     tasksByPriority(priority: $priority) {
-//       id
-//       title
-//       description
-//       completed
-//       priority
-//       createdAt
-//       updatedAt
-//     }
-//   }
-// `
+export const GET_TASKS_BY_PRIORITY = gql`
+  query GetTasksByPriority($priority: Priority!) {
+    tasksByPriority(priority: $priority) {
+      id
+      title
+      description
+      completed
+      priority
+      createdAt
+      updatedAt
+    }
+  }
+`
 
 // TODO TASK 6: Write the query for SearchTasks
 // Should accept a search query string and return matching tasks
