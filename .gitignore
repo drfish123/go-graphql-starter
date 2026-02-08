@@ -1,0 +1,16 @@
+# Backend
+backend/tasks.db
+backend/*.exe
+backend/tmp/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+# General
+.DS_Store
+*.log
+.env
+.env.local
