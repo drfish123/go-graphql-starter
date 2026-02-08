@@ -38,7 +38,7 @@ function App() {
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                {f.charAt(0).toUpperCase() + f.slice(1))}
+                {f.charAt(0).toUpperCase() + f.slice(1)}
               </button>
             ))}
           </div>
