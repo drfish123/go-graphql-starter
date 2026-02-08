@@ -6,13 +6,16 @@ A learning project for Go, GraphQL, and React integration.
 
 ```
 go-graphql-starter/
-├── backend/          # Go + gqlgen GraphQL API
+├── backend/
+│   ├── server.go     # GraphQL schema setup and server
+│   ├── resolvers.go  # Database functions and resolvers
+│   └── go.mod
 └── frontend/         # React + TypeScript + Apollo Client
 ```
 
 ## Tech Stack
 
-- **Backend:** Go, gqlgen (GraphQL), SQLite, go-chi (router)
+- **Backend:** Go, graphql-go, SQLite, go-chi (router)
 - **Frontend:** React, TypeScript, Vite, Apollo Client, Tailwind CSS
 
 ## Quick Start
@@ -21,7 +24,7 @@ go-graphql-starter/
 
 ```bash
 cd backend
-go mod download
+go mod tidy
 go run server.go
 ```
 
@@ -39,9 +42,20 @@ App: http://localhost:5173
 
 ## Learning Tasks
 
-See [GitHub Issues](../../issues) for tasks to complete.
+The codebase contains `TODO TASK` comments. Each task has a corresponding GitHub issue:
 
-## Schema Overview
+| Task | Description | File |
+|------|-------------|------|
+| #1 | Implement `getTasksByPriority` | `backend/resolvers.go` |
+| #2 | Implement `searchTasks` | `backend/resolvers.go` |
+| #3 | Implement `getTaskStats` | `backend/resolvers.go` |
+| #4 | Implement `resolveToggleTaskComplete` | `backend/resolvers.go` |
+| #5 | Write `GET_TASKS_BY_PRIORITY` query | `frontend/src/graphql/queries.ts` |
+| #6 | Write `SEARCH_TASKS` query | `frontend/src/graphql/queries.ts` |
+| #7 | Implement `TaskStats` component | `frontend/src/components/TaskStats.tsx` |
+| #8 | Implement `TOGGLE_TASK_COMPLETE` mutation | `frontend/src/graphql/queries.ts` + `TaskItem.tsx` |
+
+## Schema
 
 ```graphql
 type Task {
@@ -51,6 +65,7 @@ type Task {
   completed: Boolean!
   priority: Priority!
   createdAt: String!
+  updatedAt: String!
 }
 
 enum Priority {
@@ -58,4 +73,41 @@ enum Priority {
   MEDIUM
   HIGH
 }
+
+type TaskStats {
+  total: Int!
+  completed: Int!
+  pending: Int!
+  highPriority: Int!
+}
+
+type Query {
+  tasks(completed: Boolean): [Task!]!
+  task(id: ID!): Task
+  tasksByPriority(priority: Priority!): [Task!]!
+  searchTasks(query: String!): [Task!]!
+  taskStats: TaskStats!
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(id: ID!, input: UpdateTaskInput!): Task!
+  deleteTask(id: ID!): Boolean!
+  toggleTaskComplete(id: ID!): Task!
+}
 ```
+
+## Working Features (No Tasks Needed)
+
+- ✅ Create tasks
+- ✅ Update tasks
+- ✅ Delete tasks
+- ✅ List all tasks with filter
+- ✅ Get single task by ID
+
+## Tips
+
+1. Start with **Task 1** (backend) - it's the easiest
+2. Use the GraphQL Playground to test your backend changes
+3. Each resolver function has a `// TASK X` comment and hints
+4. Look at working functions like `getAllTasks` for patterns to follow
