@@ -173,7 +173,28 @@ func deleteTask(id string) error {
 // TODO TASK 1: Implement this function
 func getTasksByPriority(priority string) ([]Task, error) {
 	// TASK: Query tasks WHERE priority = ?, ORDER BY created_at DESC
-	return nil, fmt.Errorf("TASK 1: Not implemented - implement getTasksByPriority")
+	query := "SELECT id, title, description, completed, priority, created_at, updated_at FROM tasks WHERE priority=? ORDER BY created_at DESC"
+	rows, err := db.Query(query, priority)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var tasks []Task
+	for rows.Next() {
+		var t Task
+		var desc sql.NullString
+		err := rows.Scan(&t.ID, &t.Title, &desc, &t.Completed, &t.Priority, &t.CreatedAt, &t.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		if desc.Valid {
+			t.Description = &desc.String
+		}
+		tasks = append(tasks, t)
+	}
+
+	return tasks, rows.Err()
 }
 
 // TODO TASK 2: Implement this function
@@ -204,8 +225,8 @@ func resolveTask(p graphql.ResolveParams) (interface{}, error) {
 
 // TODO TASK 1: Implement this resolver
 func resolveTasksByPriority(p graphql.ResolveParams) (interface{}, error) {
-	// TASK: Get priority from args, call getTasksByPriority, return results
-	return nil, fmt.Errorf("TASK 1: Not implemented")
+	priority := p.Args["priority"].(string)
+	return getTasksByPriority(priority)
 }
 
 // TODO TASK 2: Implement this resolver
