@@ -52,19 +52,19 @@ export const GET_TASKS_BY_PRIORITY = gql`
 
 // TODO TASK 6: Write the query for SearchTasks
 // Should accept a search query string and return matching tasks
-// export const SEARCH_TASKS = gql`
-//   query SearchTasks($query: String!) {
-//     searchTasks(query: $query) {
-//       id
-//       title
-//       description
-//       completed
-//       priority
-//       createdAt
-//       updatedAt
-//     }
-//   }
-// `
+export const SEARCH_TASKS = gql`
+  query SearchTasks($query: String!) {
+    searchTasks(query: $query) {
+      id
+      title
+      description
+      completed
+      priority
+      createdAt
+      updatedAt
+    }
+  }
+`
 
 // TODO TASK 7: Write the query for TaskStats
 // Should return the task statistics (total, completed, pending, highPriority)

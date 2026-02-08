@@ -3,6 +3,7 @@ import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import TaskStats from './components/TaskStats'
 import PriorityFilter from './components/PriorityFilter'
+import SearchTasks from './components/SearchTasks'
 import './App.css'
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
 
           {/* Priority Filter Test - TASK 1/5 */}
           <PriorityFilter />
+
+          {/* Search Tasks Test - TASK 2/6 */}
+          <SearchTasks />
 
           {/* Create Task Form */}
           <TaskForm />
