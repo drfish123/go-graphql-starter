@@ -36,24 +36,48 @@ export const GET_TASK = gql`
 
 // TODO TASK 5: Write the query for TasksByPriority
 // Should accept a priority parameter and return tasks with that priority
-export const GET_TASKS_BY_PRIORITY = gql`
-  # TODO: Implement this query
-  # It should query tasksByPriority(priority: $priority) and return all Task fields
-`
+// export const GET_TASKS_BY_PRIORITY = gql`
+//   query GetTasksByPriority($priority: Priority!) {
+//     tasksByPriority(priority: $priority) {
+//       id
+//       title
+//       description
+//       completed
+//       priority
+//       createdAt
+//       updatedAt
+//     }
+//   }
+// `
 
 // TODO TASK 6: Write the query for SearchTasks
 // Should accept a search query string and return matching tasks
-export const SEARCH_TASKS = gql`
-  # TODO: Implement this query
-  # It should query searchTasks(query: $query) and return all Task fields
-`
+// export const SEARCH_TASKS = gql`
+//   query SearchTasks($query: String!) {
+//     searchTasks(query: $query) {
+//       id
+//       title
+//       description
+//       completed
+//       priority
+//       createdAt
+//       updatedAt
+//     }
+//   }
+// `
 
 // TODO TASK 7: Write the query for TaskStats
 // Should return the task statistics (total, completed, pending, highPriority)
-export const GET_TASK_STATS = gql`
-  # TODO: Implement this query
-  # It should query taskStats and return all TaskStats fields
-`
+// export const GET_TASK_STATS = gql`
+//   query GetTaskStats {
+//     taskStats {
+//       total
+//       completed
+//       pending
+//       highPriority
+//     }
+//   }
+// `
 
 // ============================================================
 // MUTATIONS - Modifying data
@@ -97,7 +121,16 @@ export const DELETE_TASK = gql`
 
 // TODO TASK 8: Write the mutation for ToggleTaskComplete
 // Should toggle a task's completion status and return the updated task
-export const TOGGLE_TASK_COMPLETE = gql`
-  # TODO: Implement this mutation
-  # It should call toggleTaskComplete(id: $id) and return all Task fields
-`
+// export const TOGGLE_TASK_COMPLETE = gql`
+//   mutation ToggleTaskComplete($id: ID!) {
+//     toggleTaskComplete(id: $id) {
+//       id
+//       title
+//       description
+//       completed
+//       priority
+//       createdAt
+//       updatedAt
+//     }
+//   }
+// `
