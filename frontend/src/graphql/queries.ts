@@ -68,16 +68,16 @@ export const SEARCH_TASKS = gql`
 
 // TODO TASK 7: Write the query for TaskStats
 // Should return the task statistics (total, completed, pending, highPriority)
-// export const GET_TASK_STATS = gql`
-//   query GetTaskStats {
-//     taskStats {
-//       total
-//       completed
-//       pending
-//       highPriority
-//     }
-//   }
-// `
+export const GET_TASK_STATS = gql`
+  query GetTaskStats {
+    taskStats {
+      total
+      completed
+      pending
+      highPriority
+    }
+  }
+`
 
 // ============================================================
 // MUTATIONS - Modifying data
