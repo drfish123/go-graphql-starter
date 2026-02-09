@@ -14,13 +14,13 @@ import (
 
 // Task represents a task
 type Task struct {
-	ID          string `json:"id"`
-	Title       string `json:"title"`
+	ID          string  `json:"id"`
+	Title       string  `json:"title"`
 	Description *string `json:"description,omitempty"`
-	Completed   bool   `json:"completed"`
-	Priority    string `json:"priority"`
-	CreatedAt   string `json:"createdAt"`
-	UpdatedAt   string `json:"updatedAt"`
+	Completed   bool    `json:"completed"`
+	Priority    string  `json:"priority"`
+	CreatedAt   string  `json:"createdAt"`
+	UpdatedAt   string  `json:"updatedAt"`
 }
 
 var db *sql.DB
@@ -164,7 +164,7 @@ func setupGraphQL() (graphql.Schema, error) {
 				Resolve: resolveSearchTasks,
 			},
 			"taskStats": &graphql.Field{
-				Type: graphql.NewNonNull(taskStatsType),
+				Type:    graphql.NewNonNull(taskStatsType),
 				Resolve: resolveTaskStats,
 			},
 		},

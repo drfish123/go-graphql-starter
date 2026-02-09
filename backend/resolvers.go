@@ -198,15 +198,65 @@ func getTasksByPriority(priority string) ([]Task, error) {
 }
 
 // TODO TASK 2: Implement this function
-func searchTasks(query string) ([]Task, error) {
-	// TASK: Use SQL LIKE to search title and description
-	return nil, fmt.Errorf("TASK 2: Not implemented - implement searchTasks")
+func searchTasks(search string) ([]Task, error) {
+	searchTerm := "%" + search + "%"
+	query := "SELECT id, title, description, completed, priority, created_at, updated_at FROM tasks WHERE title LIKE ? OR description LIKE ? ORDER by created_at DESC"
+	rows, err := db.Query(query, searchTerm, searchTerm)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	var tasks []Task
+	for rows.Next() {
+		var t Task
+		var desc sql.NullString
+		err := rows.Scan(&t.ID, &t.Title, &desc, &t.Completed, &t.Priority, &t.CreatedAt, &t.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		if desc.Valid {
+			t.Description = &desc.String
+		}
+		tasks = append(tasks, t)
+	}
+
+	return tasks, rows.Err()
 }
 
 // TODO TASK 3: Implement this function
 func getTaskStats() (map[string]int, error) {
 	// TASK: Return map with total, completed, pending, highPriority counts
-	return nil, fmt.Errorf("TASK 3: Not implemented - implement getTaskStats")
+	var total, completed, pending, highPriority int
+	err := db.QueryRow("SELECT COUNT(*) FROM tasks").Scan(&total)
+	if err != nil {
+		return nil, err
+	}
+
+	err = db.QueryRow("SELECT COUNT(*) FROM tasks WHERE completed = true").Scan(&completed)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = db.QueryRow("SELECT COUNT(*) FROM tasks WHERE completed = false").Scan(&pending)
+	if err != nil {
+		return nil, err
+	}
+
+	err = db.QueryRow("SELECT COUNT(*) FROM tasks WHERE priority = 'HIGH'").Scan(&highPriority)
+	if err != nil {
+		return nil, err
+	}
+
+	stats := map[string]int{
+		"total":        total,
+		"completed":    completed,
+		"pending":      pending,
+		"highPriority": highPriority,
+	}
+
+	return stats, err
 }
 
 // GraphQL Resolvers
@@ -232,13 +282,14 @@ func resolveTasksByPriority(p graphql.ResolveParams) (interface{}, error) {
 // TODO TASK 2: Implement this resolver
 func resolveSearchTasks(p graphql.ResolveParams) (interface{}, error) {
 	// TASK: Get query from args, call searchTasks, return results
-	return nil, fmt.Errorf("TASK 2: Not implemented")
+	search := p.Args["query"].(string)
+	return searchTasks(search)
 }
 
 // TODO TASK 3: Implement this resolver
 func resolveTaskStats(p graphql.ResolveParams) (interface{}, error) {
 	// TASK: Call getTaskStats, return map matching TaskStats type
-	return nil, fmt.Errorf("TASK 3: Not implemented")
+	return getTaskStats()
 }
 
 func resolveCreateTask(p graphql.ResolveParams) (interface{}, error) {
