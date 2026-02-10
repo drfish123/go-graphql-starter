@@ -224,6 +224,12 @@ func searchTasks(search string) ([]Task, error) {
 	return tasks, rows.Err()
 }
 
+func toggleTaskComplete(id string) error {
+	query := "UPDATE tasks SET completed =  NOT completed WHERE id = ?"
+	_, err := db.Exec(query, id)
+	return err
+}
+
 // TODO TASK 3: Implement this function
 func getTaskStats() (map[string]int, error) {
 	// TASK: Return map with total, completed, pending, highPriority counts
@@ -311,5 +317,6 @@ func resolveDeleteTask(p graphql.ResolveParams) (interface{}, error) {
 // TODO TASK 4: Implement this resolver
 func resolveToggleTaskComplete(p graphql.ResolveParams) (interface{}, error) {
 	// TASK: Get task by ID, toggle completed status, save, return updated task
-	return nil, fmt.Errorf("TASK 4: Not implemented")
+	id := p.Args["id"].(string)
+	return true, toggleTaskComplete(id)
 }

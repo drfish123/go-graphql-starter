@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Task, Priority } from '../types'
 import TaskEditForm from './TaskEditForm'
+import { useMutation } from '@apollo/client'
+import { GET_TASKS, TOGGLE_TASK_COMPLETE } from '../graphql/queries'
 
 interface TaskItemProps {
   task: Task
@@ -10,15 +12,19 @@ interface TaskItemProps {
 export default function TaskItem({ task, onDelete }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false)
 
+  const [toggleTaskComplete] = useMutation(TOGGLE_TASK_COMPLETE, {
+      refetchQueries: [{ query: GET_TASKS }],
+  })
+
   // TODO TASK 8: Implement toggle functionality
   // This should call the TOGGLE_TASK_COMPLETE mutation
   const handleToggle = async () => {
-    // TODO: Implement this
-    // 1. Import TOGGLE_TASK_COMPLETE mutation
-    // 2. Use useMutation hook
-    // 3. Call the mutation with task.id
-    // 4. Refetch GET_TASKS to update the list
-    console.log('Toggle not implemented yet - Complete Task 8!')
+    
+      toggleTaskComplete({
+        variables:{
+          id:task.id
+        }
+      })
   }
 
   const priorityColors: Record<Priority, string> = {
